@@ -1,0 +1,21 @@
+#!/bin/ash
+
+set -e
+
+rm -f /root/run
+
+confd='/usr/local/bin/confd'
+
+apk update
+apk upgrade
+apk add curl
+
+curl -L 'https://github.com/kelseyhightower/confd/releases/download/v0.10.0/confd-0.10.0-linux-amd64' \
+     -o "${confd}"
+
+chmod 755 "${confd}"
+
+apk del curl
+rm -rvf /var/cache/apk/*
+
+set +e
